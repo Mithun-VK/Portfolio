@@ -303,6 +303,7 @@ export const staggerAnimation = (elements, delay = 100, animationFn = fadeIn) =>
 };
 
 // Export all as default for convenience
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   easingFunctions,
   smoothScrollTo,

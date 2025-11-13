@@ -29,9 +29,6 @@ const Projects = () => {
     });
   }, [activeFilter, searchQuery, projects]);
 
-  // Get featured projects count
-  const featuredCount = projects.filter(p => p.featured).length;
-
   // Category icons
   const categoryIcons = {
     'All': '📚',

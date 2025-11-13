@@ -340,7 +340,6 @@ export const copyToClipboard = async (text) => {
     await navigator.clipboard.writeText(text);
     return true;
   } catch (error) {
-    console.error('Failed to copy:', error);
     return false;
   }
 };
@@ -423,7 +422,6 @@ export const getLocalStorage = (key, defaultValue = null) => {
     const item = window.localStorage.getItem(key);
     return item ? JSON.parse(item) : defaultValue;
   } catch (error) {
-    console.error('Error reading from localStorage:', error);
     return defaultValue;
   }
 };
@@ -439,7 +437,6 @@ export const setLocalStorage = (key, value) => {
     window.localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch (error) {
-    console.error('Error writing to localStorage:', error);
     return false;
   }
 };
@@ -454,7 +451,6 @@ export const removeLocalStorage = (key) => {
     window.localStorage.removeItem(key);
     return true;
   } catch (error) {
-    console.error('Error removing from localStorage:', error);
     return false;
   }
 };

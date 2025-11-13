@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { workExperience, education as educationData, academicProjects } from '../../../data/experience';
-import Card from '../../common/Card/Card';
 import './Experience.css';
 
 const Experience = () => {

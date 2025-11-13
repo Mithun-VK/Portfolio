@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route,useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import useTheme from './hooks/useTheme';
 import { ROUTES, FEATURE_FLAGS } from './utils/constants';
@@ -32,7 +32,6 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
   }
 
   render() {

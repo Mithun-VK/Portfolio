@@ -17,7 +17,6 @@ if (!rootElement) {
   newRoot.id = 'root';
   document.body.appendChild(newRoot);
   
-  console.error('Root element not found in HTML. Created dynamically.');
 }
 
 // Create root

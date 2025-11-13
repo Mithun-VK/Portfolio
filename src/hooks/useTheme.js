@@ -9,6 +9,7 @@ import { useState, useEffect, useCallback } from 'react';
  */
 const useTheme = () => {
   const STORAGE_KEY = 'portfolio-theme';
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const THEMES = {
     LIGHT: 'light',
     DARK: 'dark',
@@ -23,7 +24,6 @@ const useTheme = () => {
         return savedTheme;
       }
     } catch (error) {
-      console.warn('Failed to access localStorage:', error);
     }
     return THEMES.AUTO;
   };
@@ -75,7 +75,6 @@ const useTheme = () => {
   // Set theme preference and persist
   const setTheme = useCallback((newTheme) => {
     if (!Object.values(THEMES).includes(newTheme)) {
-      console.warn(`Invalid theme: ${newTheme}`);
       return;
     }
 
@@ -85,7 +84,6 @@ const useTheme = () => {
     try {
       localStorage.setItem(STORAGE_KEY, newTheme);
     } catch (error) {
-      console.warn('Failed to save theme to localStorage:', error);
     }
   }, [THEMES, applyTheme]);
 
@@ -127,7 +125,7 @@ const useTheme = () => {
   // Apply initial theme
   useEffect(() => {
     applyTheme(themePreference);
-  }, []); // Only run once on mount
+  }, [applyTheme, themePreference]); // Only run once on mount
 
   return {
     theme: actualTheme,

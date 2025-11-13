@@ -148,7 +148,7 @@ const useFormValidation = (initialValues = {}, validationRules = {}, onSubmit) =
       try {
         await onSubmit(values);
       } catch (error) {
-        console.error('Form submission error:', error);
+        
         throw error;
       } finally {
         setIsSubmitting(false);
