@@ -1,0 +1,388 @@
+/* CSS Variables for Button Theming */
+:root {
+  /* Primary Variant */
+  --button-primary-bg: #3b82f6;
+  --button-primary-hover: #2563eb;
+  --button-primary-active: #1d4ed8;
+  --button-primary-text: #ffffff;
+
+  /* Secondary Variant */
+  --button-secondary-bg: #6b7280;
+  --button-secondary-hover: #4b5563;
+  --button-secondary-active: #374151;
+  --button-secondary-text: #ffffff;
+
+  /* Outline Variant */
+  --button-outline-border: #3b82f6;
+  --button-outline-text: #3b82f6;
+  --button-outline-hover-bg: rgba(59, 130, 246, 0.1);
+
+  /* Ghost Variant */
+  --button-ghost-text: #4b5563;
+  --button-ghost-hover-bg: rgba(0, 0, 0, 0.05);
+
+  /* Danger Variant */
+  --button-danger-bg: #ef4444;
+  --button-danger-hover: #dc2626;
+  --button-danger-active: #b91c1c;
+  --button-danger-text: #ffffff;
+
+  /* Success Variant */
+  --button-success-bg: #10b981;
+  --button-success-hover: #059669;
+  --button-success-active: #047857;
+  --button-success-text: #ffffff;
+
+  /* Link Variant */
+  --button-link-text: #3b82f6;
+  --button-link-hover: #2563eb;
+
+  /* Common */
+  --button-disabled-bg: #e5e7eb;
+  --button-disabled-text: #9ca3af;
+  --button-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --button-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --button-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  
+  --transition-speed: 200ms;
+  --transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark theme adjustments */
+[data-theme='dark'] {
+  --button-ghost-text: #e5e7eb;
+  --button-ghost-hover-bg: rgba(255, 255, 255, 0.1);
+  --button-disabled-bg: #374151;
+  --button-disabled-text: #6b7280;
+}
+
+/* Base Button Styles */
+.button {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  /* Typography */
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Appearance */
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  
+  /* Transition */
+  transition: all var(--transition-speed) var(--transition-ease);
+  
+  /* Accessibility */
+  position: relative;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--button-primary-bg);
+  outline-offset: 2px;
+}
+
+/* Size Variants */
+.button--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 36px;
+}
+
+.button--medium {
+  padding: 0.625rem 1.5rem;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.button--large {
+  padding: 0.875rem 2rem;
+  font-size: 1.125rem;
+  min-height: 52px;
+}
+
+/* Primary Variant */
+.button--primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  box-shadow: var(--button-shadow);
+}
+
+.button--primary:hover:not(:disabled) {
+  background: var(--button-primary-hover);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.button--primary:active:not(:disabled) {
+  background: var(--button-primary-active);
+  box-shadow: var(--button-shadow-active);
+  transform: translateY(0);
+}
+
+/* Secondary Variant */
+.button--secondary {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  box-shadow: var(--button-shadow);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background: var(--button-secondary-hover);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.button--secondary:active:not(:disabled) {
+  background: var(--button-secondary-active);
+  box-shadow: var(--button-shadow-active);
+  transform: translateY(0);
+}
+
+/* Outline Variant */
+.button--outline {
+  background: transparent;
+  color: var(--button-outline-text);
+  border: 2px solid var(--button-outline-border);
+  box-shadow: none;
+}
+
+.button--outline:hover:not(:disabled) {
+  background: var(--button-outline-hover-bg);
+  border-color: var(--button-primary-hover);
+  color: var(--button-primary-hover);
+}
+
+.button--outline:active:not(:disabled) {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+/* Ghost Variant */
+.button--ghost {
+  background: transparent;
+  color: var(--button-ghost-text);
+  box-shadow: none;
+}
+
+.button--ghost:hover:not(:disabled) {
+  background: var(--button-ghost-hover-bg);
+}
+
+.button--ghost:active:not(:disabled) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Danger Variant */
+.button--danger {
+  background: var(--button-danger-bg);
+  color: var(--button-danger-text);
+  box-shadow: var(--button-shadow);
+}
+
+.button--danger:hover:not(:disabled) {
+  background: var(--button-danger-hover);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.button--danger:active:not(:disabled) {
+  background: var(--button-danger-active);
+  box-shadow: var(--button-shadow-active);
+  transform: translateY(0);
+}
+
+/* Success Variant */
+.button--success {
+  background: var(--button-success-bg);
+  color: var(--button-success-text);
+  box-shadow: var(--button-shadow);
+}
+
+.button--success:hover:not(:disabled) {
+  background: var(--button-success-hover);
+  box-shadow: var(--button-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.button--success:active:not(:disabled) {
+  background: var(--button-success-active);
+  box-shadow: var(--button-shadow-active);
+  transform: translateY(0);
+}
+
+/* Link Variant */
+.button--link {
+  background: transparent;
+  color: var(--button-link-text);
+  padding: 0.25rem 0.5rem;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.button--link:hover:not(:disabled) {
+  color: var(--button-link-hover);
+  background: transparent;
+  text-decoration: none;
+}
+
+/* Disabled State */
+.button--disabled,
+.button:disabled {
+  background: var(--button-disabled-bg);
+  color: var(--button-disabled-text);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.button--outline.button--disabled,
+.button--outline:disabled {
+  background: transparent;
+  border-color: var(--button-disabled-text);
+}
+
+.button--ghost.button--disabled,
+.button--ghost:disabled {
+  background: transparent;
+}
+
+.button--link.button--disabled,
+.button--link:disabled {
+  background: transparent;
+  text-decoration: none;
+}
+
+/* Full Width */
+.button--full-width {
+  width: 100%;
+}
+
+/* Loading State */
+.button--loading {
+  cursor: wait;
+  position: relative;
+}
+
+.button__content--loading {
+  opacity: 0;
+}
+
+/* Icons */
+.button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.button__icon svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.button--small .button__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.button--large .button__icon svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* Loading Spinner */
+.button__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__spinner-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  animation: button-spin 0.6s linear infinite;
+}
+
+.button--small .button__spinner-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.button--large .button__spinner-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.button__spinner-circle {
+  opacity: 0.25;
+}
+
+.button__spinner-path {
+  opacity: 0.75;
+}
+
+@keyframes button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ripple Effect (Optional Enhancement) */
+.button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.button:active:not(:disabled)::before {
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+}
+
+/* Accessibility: High Contrast Mode */
+@media (prefers-contrast: high) {
+  .button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button__spinner-icon,
+  .button::before {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .button {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+}

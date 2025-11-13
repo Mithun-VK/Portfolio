@@ -1,0 +1,199 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ============================================
+# DEPENDENCIES
+# ============================================
+/node_modules
+/.pnp
+.pnp.js
+
+# ============================================
+# TESTING
+# ============================================
+/coverage
+
+# ============================================
+# PRODUCTION BUILD
+# ============================================
+/build
+/dist
+
+# ============================================
+# MISC
+# ============================================
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# IDE / EDITOR
+# ============================================
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# WebStorm
+.webstorm/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================
+# OPERATING SYSTEM FILES
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================
+# LOGS
+# ============================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ============================================
+# CACHE & TEMP FILES
+# ============================================
+.cache
+.temp
+.tmp
+*.tmp
+*.temp
+
+# Next.js (if you migrate)
+.next/
+out/
+
+# Gatsby (if you migrate)
+.cache/
+public
+
+# ============================================
+# PACKAGE MANAGERS
+# ============================================
+
+# npm
+package-lock.json
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# pnpm
+pnpm-lock.yaml
+
+# ============================================
+# TESTING & COVERAGE
+# ============================================
+coverage/
+*.coverage
+.nyc_output
+.jest-cache/
+
+# ============================================
+# STORYBOOK
+# ============================================
+storybook-static/
+
+# ============================================
+# TYPESCRIPT
+# ============================================
+*.tsbuildinfo
+
+# ============================================
+# OPTIONAL DIRECTORIES
+# ============================================
+
+# Documentation build
+docs/build/
+
+# Static files (if generated)
+/static/generated/
+
+# ============================================
+# SECURITY & SENSITIVE FILES
+# ============================================
+
+# Environment variables
+.env
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# AWS
+.aws/
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# ============================================
+# DEPLOYMENT
+# ============================================
+.vercel
+.netlify
+
+# ============================================
+# MISC PROJECT FILES
+# ============================================
+TODO.md
+NOTES.md
+scratch.js
