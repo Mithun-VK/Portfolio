@@ -28,11 +28,11 @@ The system processes millions of data points in real-time, providing instant vis
       ml: ['TensorFlow', 'Pandas', 'NumPy', 'Scikit-learn'],
       devops: ['Docker', 'Azure', 'GitHub Actions', 'Nginx']
     },
-    github: 'https://github.com/yourusername/datasense',
+    github: 'https://github.com/Mithun-VK/datasense_AI',
     live: 'https://datasense-demo.com',
     featured: true,
-    status: 'completed', // completed, in-progress, archived
-    duration: '4 months',
+    status: 'In progress', // completed, in-progress, archived
+    duration: '1 month',
     team: 'Solo Project',
     role: 'Full-Stack Developer',
     features: [
@@ -91,11 +91,11 @@ The system processes millions of data points in real-time, providing instant vis
       database: ['MongoDB', 'Redis'],
       devops: ['Docker', 'AWS']
     },
-    github: 'https://github.com/yourusername/asre',
-    live: 'https://asre-demo.com',
+    github: 'https://github.com/Mithun-VK/ASRE',
+    live: 'https://icy-field-083dde500.3.azurestaticapps.net/',
     featured: true,
     status: 'completed',
-    duration: '3 months',
+    duration: '1 Week',
     team: 'Solo Project',
     role: 'Full-Stack Developer & ML Engineer',
     features: [
@@ -142,11 +142,11 @@ The system processes millions of data points in real-time, providing instant vis
       database: ['MongoDB'],
       services: ['Firebase Auth', 'Firebase Cloud Messaging']
     },
-    github: 'https://github.com/yourusername/tamil-quiz',
+    github: 'https://github.com/Mithun-VK/TamilQuiz',
     live: null,
     featured: false,
-    status: 'completed',
-    duration: '2 months',
+    status: 'In progress',
+    duration: '2 weeks',
     team: 'Solo Project',
     role: 'Mobile App Developer',
     features: [
@@ -182,16 +182,16 @@ The system processes millions of data points in real-time, providing instant vis
     category: 'AI/ML',
     tags: ['Node.js', 'Socket.io', 'NLP', 'MongoDB'],
     technologies: {
-      frontend: ['React', 'Socket.io-client'],
+      frontend: ['React-Native', 'Socket.io-client'],
       backend: ['Node.js', 'Socket.io', 'Express'],
       ml: ['Dialogflow', 'Natural', 'Compromise'],
       database: ['MongoDB']
     },
-    github: 'https://github.com/yourusername/trading-chatbot',
-    live: 'https://chatbot-demo.com',
+    github: 'https://github.com/Mithun-VK/trading-chatbot',
+    live: 'null',
     featured: true,
     status: 'completed',
-    duration: '2 months',
+    duration: '1 Week',
     team: 'Solo Project',
     role: 'Full-Stack Developer',
     features: [
@@ -225,18 +225,18 @@ The system processes millions of data points in real-time, providing instant vis
     image: '/assets/images/projects/zypfit.jpg',
     images: [],
     category: 'Full-Stack',
-    tags: ['React', 'Express', 'PostgreSQL', 'Stripe'],
+    tags: ['React-Native', 'Express', 'PostgreSQL', 'Razorpay'],
     technologies: {
-      frontend: ['React', 'Redux Toolkit', 'Leaflet'],
+      frontend: ['React-native'],
       backend: ['Express', 'Node.js'],
       database: ['PostgreSQL', 'Redis'],
-      services: ['Stripe', 'Twilio', 'SendGrid']
+      services: ['Razorpay', 'Twilio', 'SendGrid']
     },
-    github: 'https://github.com/yourusername/zypfit',
+    github: 'null',
     live: null,
     featured: false,
     status: 'completed',
-    duration: '3 months',
+    duration: '1.5 months',
     team: 'Solo Project',
     role: 'Full-Stack Developer',
     features: [
