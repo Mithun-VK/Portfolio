@@ -247,7 +247,7 @@ const Hero = () => {
             {/* Animated Glow Background */}
             <div className="hero__image-bg" aria-hidden="true"></div>
             
-            {/* Profile Image Placeholder */}
+            {/* Profile Image */}
 <div className="hero__image-container">
   <img 
     src="/assets/images/profile.jpg"
