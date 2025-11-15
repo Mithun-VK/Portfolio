@@ -25,7 +25,7 @@ const Hero = () => {
     tagline: 'Building Intelligent Solutions with Modern Technologies',
     description: 'Computer Science Engineering student at Anna University Chennai, specializing in full-stack development and AI/ML integration. Building scalable applications with React, Node.js, and cloud technologies.',
     location: 'Chennai, India',
-    email: 'mithunvk2004@gmail.com',
+    email: 'mithunvk216@gmail.com',
     resumePath: '/assets/documents/Mithun_VK_Resume.pdf'
   };
 
@@ -248,23 +248,14 @@ const Hero = () => {
             <div className="hero__image-bg" aria-hidden="true"></div>
             
             {/* Profile Image Placeholder */}
-            <div className="hero__image-placeholder">
-              <div className="hero__image-icon">
-                <svg 
-                  width="140" 
-                  height="140" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                  <circle cx="12" cy="7" r="4"/>
-                </svg>
-              </div>
-            </div>
+<div className="hero__image-container">
+  <img 
+    src="/assets/images/profile.jpg"
+    alt="Mithun VK - Full Stack Developer"
+    className="hero__image"
+    loading="eager"
+  />
+</div>
 
             {/* Floating Badges */}
             <div className="hero__floating hero__floating--1" aria-hidden="true">
