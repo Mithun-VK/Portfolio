@@ -17,7 +17,7 @@ The system processes millions of data points in real-time, providing instant vis
     images: [
       '/assets/images/projects/DataSense1.png',
       '/assets/images/projects/DataSense2.png',
-      '/assets/images/projects/DataSsense3.png'
+      '/assets/images/projects/DataSense3.png'
     ],
     category: 'Full-Stack',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Azure'],

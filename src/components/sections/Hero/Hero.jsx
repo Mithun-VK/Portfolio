@@ -99,13 +99,6 @@ const Hero = () => {
       <polyline points="12 5 19 12 12 19"/>
     </svg>
   );
-
-  const ChevronDownIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polyline points="6 9 12 15 18 9"/>
-    </svg>
-  );
-
   const handleDownloadResume = () => {
     if (window.gtag) {
       window.gtag('event', 'download', {
@@ -234,14 +227,14 @@ const Hero = () => {
         {/* Visual Side */}
         <div className={`hero__visual ${isVisible ? 'hero__visual--visible' : ''}`}>
           <div className="hero__image-wrapper">
-            {/* Profile Image */}
+            {/* Profile Image - Updated for portrait aspect ratio */}
             <img 
-              src="/assets/images/profile.png"
+              src="/assets/images/profile.jpg"
               alt="Mithun VK - Full Stack Developer"
               className="hero__image"
               loading="eager"
-              width="420"
-              height="420"
+              width="500"
+              height="667"
             />
 
             {/* Floating Badges */}
@@ -273,10 +266,6 @@ const Hero = () => {
           aria-label="Scroll to about section"
           title="Scroll down to learn more"
         >
-          <span className="hero__scroll-text">Scroll Down</span>
-          <div className="hero__scroll-arrow">
-            <ChevronDownIcon />
-          </div>
         </button>
       </div>
     </section>
