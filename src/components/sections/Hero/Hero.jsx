@@ -248,7 +248,7 @@ const Hero = () => {
             <div className="hero__image-bg" aria-hidden="true"></div>
             
             {/* Profile Image */}
-<div className="hero__image-container">
+<div className="hero__image-ball">
   <img 
     src="/assets/images/profile.jpg"
     alt="Mithun VK - Full Stack Developer"
