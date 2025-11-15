@@ -957,6 +957,72 @@
   align-items: center;
   justify-content: center;
 }
+.hero__image-ball {
+  /* Existing styles... */
+  box-shadow:
+    0 0 0 6px rgba(59, 130, 246, 0.13),
+    0 4px 32px 0 rgba(139, 92, 246, 0.09),
+    0 0 60px 4px rgba(16,185,129,0.10),
+    0 3px 24px 8px rgba(0,0,0, 0.09);
+  background: radial-gradient(ellipse at 72% 36%, rgba(59,130,246,0.07), transparent 68%), 
+    linear-gradient(135deg, rgba(59,130,246,0.14), rgba(139,92,246,0.10) 65%, rgba(16,185,129,0.07));
+  position: relative;
+}
+
+.hero__image {
+  border: 5px solid rgba(255, 255, 255, 0.18);
+  filter: grayscale(0.13) contrast(1.13) brightness(1.08) saturate(1.23);
+  transition: box-shadow 0.45s cubic-bezier(.31,.86,.66,1.12), filter 0.35s, transform 0.45s;
+  background: linear-gradient(115deg,rgba(59,130,246,0.04) 10%,rgba(139,92,246,0.09) 80%,transparent 100%);
+}
+
+/* Add a glass reflection shine */
+.hero__image-ball::before {
+  content: "";
+  position: absolute;
+  left: 16%;
+  top: 6%;
+  width: 72%;
+  height: 22%;
+  background: linear-gradient(114deg,rgba(255,255,255,0.24) 0%,rgba(255,255,255,0.10) 98%);
+  border-radius: 35% 65% 46% 54%/38% 33% 67% 62%;
+  opacity: 0.51;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  filter: blur(1.2px);
+  z-index: 2;
+}
+
+.hero__image-ball::after {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  right: 9%;
+  width: 12%;
+  height: 20%;
+  background: linear-gradient(180deg,rgba(255,255,255,0.19) 10%,rgba(255,255,255,0.04) 80%);
+  opacity: 0.33;
+  border-radius: 51% 49% 65% 35%/44% 34% 66% 56%;
+  z-index: 2;
+}
+
+/* Slightly scale and lighten/glow image on hover */
+.hero__image-ball:hover .hero__image {
+  box-shadow: 0 0 98px 30px rgba(59, 130, 246, 0.26),
+    0 8px 64px 20px rgba(139, 92, 246, 0.23),
+    0 16px 64px 20px rgba(16, 185, 129, 0.20),
+    0 12px 36px 12px rgba(0,0,0,0.18);
+  filter: grayscale(0) contrast(1.17) brightness(1.14) saturate(1.19);
+  transform: scale(1.048) rotate(-2deg);
+  border-color: rgba(59,130,246, 0.30);
+}
+
+/* Add a subtle drop-shadow glow to img so it floats above the bg ball */
+.hero__image {
+  box-shadow:
+    0 10px 50px 0 rgba(59,130,246,0.14),
+    0 6px 16px 12px rgba(139,92,246,.14);
+}
 
 .hero__image {
   width: 100%;
