@@ -13,11 +13,11 @@ export const projects = [
     fullDescription: `DataSense AI is a comprehensive full-stack data analytics platform designed to transform raw data into actionable insights. The platform integrates advanced machine learning models with an intuitive user interface, making complex data analysis accessible to business users.
 
 The system processes millions of data points in real-time, providing instant visualizations and predictive analytics. With role-based access control and customizable dashboards, teams can collaborate effectively while maintaining data security.`,
-    image: '/assets/images/projects/datasense.jpg',
+    image: '/assets/images/projects/DataSense1.png',
     images: [
-      '/assets/images/projects/datasense1.png',
-      '/assets/images/projects/datasense2.png',
-      '/assets/images/projects/datasense3.png'
+      '/assets/images/projects/DataSense1.png',
+      '/assets/images/projects/DataSense2.png',
+      '/assets/images/projects/DataSsense3.png'
     ],
     category: 'Full-Stack',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Azure'],

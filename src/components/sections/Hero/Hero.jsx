@@ -248,14 +248,12 @@ const Hero = () => {
             <div className="hero__image-bg" aria-hidden="true"></div>
             
             {/* Profile Image */}
-<div className="hero__image-ball">
   <img 
     src="/assets/images/profile.jpg"
     alt="Mithun VK - Full Stack Developer"
     className="hero__image"
     loading="eager"
   />
-</div>
 
             {/* Floating Badges */}
             <div className="hero__floating hero__floating--1" aria-hidden="true">
