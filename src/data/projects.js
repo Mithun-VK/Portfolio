@@ -15,9 +15,9 @@ export const projects = [
 The system processes millions of data points in real-time, providing instant visualizations and predictive analytics. With role-based access control and customizable dashboards, teams can collaborate effectively while maintaining data security.`,
     image: '/assets/images/projects/datasense.jpg',
     images: [
-      '/assets/images/projects/datasense-1.jpg',
-      '/assets/images/projects/datasense-2.jpg',
-      '/assets/images/projects/datasense-3.jpg'
+      '/assets/images/projects/datasense1.jpg',
+      '/assets/images/projects/datasense2.jpg',
+      '/assets/images/projects/datasense3.jpg'
     ],
     category: 'Full-Stack',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Azure'],
@@ -81,7 +81,7 @@ The system processes millions of data points in real-time, providing instant vis
     description: 'AI-powered stock analysis platform with real-time data processing and predictive analytics.',
     fullDescription: `ASRE Stock Analyzer is an advanced fintech application that leverages artificial intelligence to provide real-time stock market analysis and predictions. The platform combines multiple data sources, technical indicators, and machine learning models to deliver actionable trading insights.`,
     image: '/assets/images/projects/asre.jpg',
-    images: ['/assets/images/projects/asre-1.jpg'],
+    images: ['/assets/images/projects/asre1.jpg'],
     category: 'AI/ML',
     tags: ['FastAPI', 'React', 'WebSockets', 'TensorFlow'],
     technologies: {
