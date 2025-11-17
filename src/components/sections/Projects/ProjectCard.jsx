@@ -8,6 +8,7 @@ const ProjectCard = ({ project, index }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [imageSrc, setImageSrc] = useState(project.image);
 
   const handleViewDetails = () => {
     setShowModal(true);
@@ -41,8 +42,15 @@ const ProjectCard = ({ project, index }) => {
 
   const handleImageError = (e) => {
     setImageError(true);
-    // Use a generic placeholder or a category-specific placeholder
-    e.target.src = '/assets/images/placeholder-project.jpg';
+    setImageLoaded(false);
+    // Create a placeholder data URL as fallback
+    const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24"%3EProject Image%3C/text%3E%3C/svg%3E';
+    setImageSrc(placeholder);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
   };
 
   return (
@@ -77,16 +85,25 @@ const ProjectCard = ({ project, index }) => {
           }}
           aria-label={`View ${project.title} details`}
         >
-          <Card.Image 
-            src={project.image} 
-            alt={`${project.title} - ${project.tagline || project.description}`}
-            onLoad={() => setImageLoaded(true)}
-            onError={handleImageError}
-          >
+          {/* Direct img tag instead of Card.Image */}
+          <div className="card-image-wrapper">
+            <img 
+              src={imageSrc}
+              alt={`${project.title} - ${project.tagline || project.description}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              className="card-image"
+              style={{
+                opacity: imageLoaded && !imageError ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out'
+              }}
+            />
             {!imageLoaded && !imageError && (
-              <div className="project-card__skeleton" aria-label="Loading image" />
+              <div className="project-card__skeleton" aria-label="Loading image">
+                <div className="skeleton-animation"></div>
+              </div>
             )}
-          </Card.Image>
+          </div>
         </div>
 
         <Card.Body>

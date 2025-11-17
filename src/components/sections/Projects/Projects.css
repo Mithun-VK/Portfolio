@@ -1256,3 +1256,311 @@
     animation: none !important;
   }
 }
+/* Modal Image Skeleton Loading */
+.project-modal__image-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  z-index: 1;
+}
+
+.skeleton-pulse {
+  width: 100%;
+  height: 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.project-modal__image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 600px;
+}
+
+.project-modal__image-wrapper {
+  position: relative;
+  width: 100%;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+/* ============================================
+   IMAGE SKELETON LOADING - MISSING STYLES
+   ============================================ */
+
+/* Card Image Wrapper */
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* 16:9 aspect ratio */
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.03));
+  border-radius: 1rem 1rem 0 0;
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out, transform 0.6s ease;
+}
+
+.card-image-wrapper:hover .card-image {
+  transform: scale(1.05);
+}
+
+/* Enhanced Project Card Skeleton */
+.project-card__skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(229, 231, 235, 0.4) 0%,
+    rgba(209, 213, 219, 0.6) 50%,
+    rgba(229, 231, 235, 0.4) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerEnhanced 2s ease-in-out infinite;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.skeleton-animation {
+  width: 100%;
+  height: 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Dark mode skeleton */
+[data-theme='dark'] .project-card__skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(51, 65, 85, 0.4) 0%,
+    rgba(71, 85, 105, 0.6) 50%,
+    rgba(51, 65, 85, 0.4) 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* Modal Image Skeleton - CRITICAL ADDITION */
+.project-modal__image-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #e0e0e0 50%,
+    #f0f0f0 100%
+  );
+  background-size: 200% 100%;
+  z-index: 1;
+  animation: shimmerSlow 1.8s ease-in-out infinite;
+}
+
+.skeleton-pulse {
+  width: 100%;
+  height: 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmerSlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Dark mode modal skeleton */
+[data-theme='dark'] .project-modal__image-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 41, 59, 0.8) 0%,
+    rgba(51, 65, 85, 1) 50%,
+    rgba(30, 41, 59, 0.8) 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* Modal Image Styles */
+.project-modal__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: 600px;
+  transition: opacity 0.3s ease-in-out, transform 0.6s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.project-modal__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+}
+
+.project-modal__image-wrapper:hover .project-modal__image {
+  transform: scale(1.08);
+}
+
+/* Image Error State - Placeholder Styling */
+.project-modal__image[src*="data:image/svg"],
+.card-image[src*="data:image/svg"] {
+  object-fit: contain;
+  background: #f5f5f5;
+}
+
+[data-theme='dark'] .project-modal__image[src*="data:image/svg"],
+[data-theme='dark'] .card-image[src*="data:image/svg"] {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+/* Smooth Image Load Transition */
+.project-modal__image:not([style*="opacity: 0"]) {
+  animation: imageReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-image:not([style*="opacity: 0"]) {
+  animation: imageReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes imageReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Loading Spinner Alternative - Optional */
+.image-loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(59, 130, 246, 0.2);
+  border-top-color: var(--color-primary-500);
+  border-radius: 50%;
+  animation: spinner 0.8s linear infinite;
+  z-index: 3;
+}
+
+@keyframes spinner {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Image Load Error State */
+.image-error-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: var(--text-secondary);
+  text-align: center;
+  background: rgba(239, 68, 68, 0.05);
+  border: 2px dashed rgba(239, 68, 68, 0.2);
+  border-radius: 1rem;
+}
+
+.image-error-placeholder svg {
+  width: 48px;
+  height: 48px;
+  color: rgba(239, 68, 68, 0.5);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS FOR IMAGES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .card-image-wrapper {
+    padding-top: 65%; /* Slightly taller on mobile */
+  }
+  
+  .project-modal__image-wrapper {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-image-wrapper {
+    padding-top: 70%;
+  }
+  
+  .project-modal__image-wrapper {
+    height: 200px;
+  }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Use GPU acceleration for animations */
+.project-card__skeleton,
+.project-modal__image-skeleton,
+.card-image,
+.project-modal__image {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .project-card__skeleton,
+  .project-modal__image-skeleton,
+  .skeleton-animation,
+  .skeleton-pulse,
+  .card-image,
+  .project-modal__image {
+    animation: none !important;
+    transition: none !important;
+  }
+}

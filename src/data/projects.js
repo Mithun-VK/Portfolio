@@ -3,6 +3,9 @@
  * Centralized project information for portfolio
  */
 
+// For images in public folder, use string paths
+const getPublicImage = (path) => process.env.PUBLIC_URL + path;
+
 export const projects = [
   {
     id: 1,
@@ -13,11 +16,11 @@ export const projects = [
     fullDescription: `DataSense AI is a comprehensive full-stack data analytics platform designed to transform raw data into actionable insights. The platform integrates advanced machine learning models with an intuitive user interface, making complex data analysis accessible to business users.
 
 The system processes millions of data points in real-time, providing instant visualizations and predictive analytics. With role-based access control and customizable dashboards, teams can collaborate effectively while maintaining data security.`,
-    image: '/assets/images/projects/DataSense1.png',
+    image: getPublicImage('/assets/images/projects/DataSense1.png'),
     images: [
-      '/assets/images/projects/DataSense1.png',
-      '/assets/images/projects/DataSense2.png',
-      '/assets/images/projects/DataSense3.png'
+      getPublicImage('/assets/images/projects/DataSense1.png'),
+      getPublicImage('/assets/images/projects/DataSense2.png'),
+      getPublicImage('/assets/images/projects/DataSense3.png')
     ],
     category: 'Full-Stack',
     tags: ['React', 'Node.js', 'PostgreSQL', 'Python', 'Azure'],
@@ -31,7 +34,7 @@ The system processes millions of data points in real-time, providing instant vis
     github: 'https://github.com/Mithun-VK/datasense_AI',
     live: 'https://datasense-demo.com',
     featured: true,
-    status: 'In progress', // completed, in-progress, archived
+    status: 'In progress',
     duration: '1 month',
     team: 'Solo Project',
     role: 'Full-Stack Developer',
@@ -80,8 +83,11 @@ The system processes millions of data points in real-time, providing instant vis
     tagline: 'AI-Powered Stock Market Analysis',
     description: 'AI-powered stock analysis platform with real-time data processing and predictive analytics.',
     fullDescription: `ASRE Stock Analyzer is an advanced fintech application that leverages artificial intelligence to provide real-time stock market analysis and predictions. The platform combines multiple data sources, technical indicators, and machine learning models to deliver actionable trading insights.`,
-    image: '/assets/images/projects/asre.png',
-    images: ['/assets/images/projects/asre1.png','/assets/images/projects/asre.png'],
+    image: getPublicImage('/assets/images/projects/asre.png'),
+    images: [
+      getPublicImage('/assets/images/projects/asre1.png'),
+      getPublicImage('/assets/images/projects/asre.png')
+    ],
     category: 'AI/ML',
     tags: ['FastAPI', 'React', 'WebSockets', 'TensorFlow'],
     technologies: {
@@ -132,7 +138,7 @@ The system processes millions of data points in real-time, providing instant vis
     tagline: 'Educational Mobile Application',
     description: 'Mobile quiz application with backend API integration and real-time scoring functionality.',
     fullDescription: `An engaging mobile quiz application designed to help users learn Tamil language and culture. Features include multiple quiz categories, real-time scoring, and social leaderboards to encourage competitive learning.`,
-    image: '/assets/images/projects/quiz.jpg',
+    image: getPublicImage('/assets/images/projects/quiz.jpg'),
     images: [],
     category: 'Mobile',
     tags: ['React Native', 'Node.js', 'MongoDB', 'Firebase'],
@@ -177,7 +183,7 @@ The system processes millions of data points in real-time, providing instant vis
     tagline: 'Intelligent Trading Assistant',
     description: 'Conversational AI bot for trading insights with real-time messaging and NLP integration.',
     fullDescription: `An intelligent chatbot that provides trading insights and market analysis through natural language conversations. Powered by advanced NLP models to understand complex trading queries.`,
-    image: '/assets/images/projects/chatbot.jpg',
+    image: getPublicImage('/assets/images/projects/chatbot.jpg'),
     images: [],
     category: 'AI/ML',
     tags: ['Node.js', 'Socket.io', 'NLP', 'MongoDB'],
@@ -188,7 +194,7 @@ The system processes millions of data points in real-time, providing instant vis
       database: ['MongoDB']
     },
     github: 'https://github.com/Mithun-VK/trading-chatbot',
-    live: 'null',
+    live: null,
     featured: true,
     status: 'completed',
     duration: '1 Week',
@@ -222,7 +228,7 @@ The system processes millions of data points in real-time, providing instant vis
     tagline: 'Fast Delivery E-Commerce Platform',
     description: 'Fast delivery e-commerce platform with real-time tracking and payment integration.',
     fullDescription: `A modern e-commerce platform focused on quick delivery with real-time order tracking, secure payments, and comprehensive admin dashboard for inventory management.`,
-    image: '/assets/images/projects/zypfit.jpg',
+    image: getPublicImage('/assets/images/projects/zypfit.jpg'),
     images: [],
     category: 'Full-Stack',
     tags: ['React-Native', 'Express', 'PostgreSQL', 'Razorpay'],
@@ -232,7 +238,7 @@ The system processes millions of data points in real-time, providing instant vis
       database: ['PostgreSQL', 'Redis'],
       services: ['Razorpay', 'Twilio', 'SendGrid']
     },
-    github: 'null',
+    github: null,
     live: null,
     featured: false,
     status: 'completed',
@@ -267,7 +273,7 @@ The system processes millions of data points in real-time, providing instant vis
     tagline: 'Secure File Encryption Utility',
     description: 'Secure file encryption and decryption tool with multiple algorithm support.',
     fullDescription: `A command-line tool for secure file encryption supporting multiple algorithms. Built with security best practices and optimized for large file processing.`,
-    image: '/assets/images/projects/encryption.jpg',
+    image: getPublicImage('/assets/images/projects/encryption.jpg'),
     images: [],
     category: 'Security',
     tags: ['Python', 'Cryptography', 'CLI'],

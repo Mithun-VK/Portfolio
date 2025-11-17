@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../../common/Button/Button';
 import './Projects.css';
@@ -7,16 +8,50 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
   const modalRef = useRef(null);
   const contentRef = useRef(null);
   const previousFocusRef = useRef(null);
+  
+  // Image state management
+  const [imageSrc, setImageSrc] = useState(project?.image);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // Update image source when project changes
+  useEffect(() => {
+    if (project?.image) {
+      setImageSrc(project.image);
+      setImageError(false);
+      setImageLoading(true);
+    }
+  }, [project]);
 
   // Memoize close handler to prevent re-renders
   const handleClose = useCallback(() => {
     onClose();
   }, [onClose]);
 
-  // Handle body scroll lock and focus management
-  useEffect(() => {
-    if (isOpen) {
-      previousFocusRef.current = document.activeElement;
+  // Handle image error with SVG placeholder fallback
+  const handleImageError = useCallback((e) => {
+    setImageError(true);
+    setImageLoading(false);
+    
+    // Create SVG placeholder with project title
+    const svgPlaceholder = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Crect fill='%23f0f0f0' width='1200' height='600'/%3E%3Crect fill='%23e0e0e0' x='100' y='100' width='1000' height='400' rx='8'/%3E%3Ctext fill='%23666' x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='32' font-weight='600'%3E${encodeURIComponent(project?.title || 'Project')}%3C/text%3E%3Ctext fill='%23999' x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='18'%3EImage not available%3C/text%3E%3C/svg%3E`;
+    
+    setImageSrc(svgPlaceholder);
+  }, [imageSrc, project]);
+
+  // Handle image load success
+  const handleImageLoad = useCallback(() => {
+    setImageLoading(false);
+    setImageError(false);
+  }, []);
+
+// Handle body scroll lock and focus management
+useEffect(() => {
+  if (isOpen) {
+    previousFocusRef.current = document.activeElement;
+    
+    // Batch DOM operations to avoid forced reflow
+    requestAnimationFrame(() => {
       document.body.style.overflow = 'hidden';
       
       // Scroll modal content to top
@@ -24,8 +59,8 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         contentRef.current.scrollTop = 0;
       }
       
-      // Focus first focusable element
-      setTimeout(() => {
+      // Focus first focusable element - use requestAnimationFrame instead of setTimeout
+      requestAnimationFrame(() => {
         const focusableElements = modalRef.current?.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
@@ -33,16 +68,17 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         if (focusableElements?.length > 0) {
           focusableElements[0].focus();
         }
-      }, 100);
-    } else {
-      document.body.style.overflow = 'unset';
-      previousFocusRef.current?.focus();
-    }
+      });
+    });
+  } else {
+    document.body.style.overflow = 'unset';
+    previousFocusRef.current?.focus();
+  }
 
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  return () => {
+    document.body.style.overflow = 'unset';
+  };
+}, [isOpen]);
 
   // Handle keyboard events
   useEffect(() => {
@@ -143,14 +179,22 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         </button>
 
         <div ref={contentRef} className="project-modal__content">
-          {/* Image Section */}
+          {/* Image Section with Enhanced Error Handling */}
           <div className="project-modal__image-wrapper">
+            {imageLoading && !imageError && (
+              <div className="project-modal__image-skeleton" aria-label="Loading image">
+                <div className="skeleton-pulse"></div>
+              </div>
+            )}
             <img 
-              src={project.image} 
+              src={imageSrc}
               alt={`${project.title} - ${project.tagline || 'Project screenshot'}`}
               className="project-modal__image"
-              onError={(e) => {
-                e.target.src = '/assets/images/placeholder-project.jpg';
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              style={{
+                opacity: !imageLoading ? 1 : 0,
+                transition: 'opacity 0.3s ease-in-out'
               }}
             />
             {project.featured && (
