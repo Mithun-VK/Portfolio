@@ -124,9 +124,14 @@ const About = () => {
           {/* Left: Image + Stats */}
           <div className="about__visual">
             <div className="about__image-wrapper">
-              <div className="about__image-placeholder">
-                <div className="about__image-icon">👨‍💻</div>
-              </div>
+<div className="about__image-placeholder">
+  <img
+    className="about__profile-photo"
+    src="assets/images/profile.jpg"
+    alt="Mithun V K"
+    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }}
+  />
+</div>
               <div className="about__image-overlay">
                 <div className="about__badge">
                   <span className="about__badge-icon">🎓</span>
