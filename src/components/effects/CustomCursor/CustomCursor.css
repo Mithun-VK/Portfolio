@@ -1,0 +1,48 @@
+.custom-cursor {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.custom-cursor-trail {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: rgba(59, 130, 246, 0.3);
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+}
+
+@media (hover: none) {
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none;
+  }
+}
+
+/* Hide custom cursor on mobile */
+@media (max-width: 768px) {
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none;
+  }
+}
+
+/* Add interactive class to elements that should trigger cursor effects */
+.interactive {
+  cursor: none;
+}

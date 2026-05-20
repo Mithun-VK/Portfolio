@@ -19,7 +19,7 @@
 
 /* Section Spacing - uses global.css utilities */
 .home__main > section {
-  scroll-margin-top: 80px; /* Account for fixed navbar */
+  scroll-margin-top: var(--navbar-height);
 }
 
 /* Scroll Progress Indicator */
@@ -28,12 +28,7 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary-500),
-    var(--color-secondary-500),
-    var(--color-accent-500)
-  );
+  background: var(--color-accent);
   width: var(--scroll-progress, 0%);
   z-index: 1000;
   transition: width 0.1s linear;

@@ -1,393 +1,230 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { createPortal } from 'react-dom';
-import Button from '../../common/Button/Button';
+import { modalOverlay, modalContent } from '../../../utils/motion';
 import './Projects.css';
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
   const modalRef = useRef(null);
-  const contentRef = useRef(null);
   const previousFocusRef = useRef(null);
-  
-  // Image state management
-  const [imageSrc, setImageSrc] = useState(project?.image);
-  const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
+  const reduced = useReducedMotion();
 
-  // Update image source when project changes
+  const handleClose = useCallback(() => onClose(), [onClose]);
+
   useEffect(() => {
-    if (project?.image) {
-      setImageSrc(project.image);
-      setImageError(false);
-      setImageLoading(true);
-    }
-  }, [project]);
-
-  // Memoize close handler to prevent re-renders
-  const handleClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
-
-  // Handle image error with SVG placeholder fallback
-  const handleImageError = useCallback((e) => {
-    setImageError(true);
-    setImageLoading(false);
-    
-    // Create SVG placeholder with project title
-    const svgPlaceholder = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Crect fill='%23f0f0f0' width='1200' height='600'/%3E%3Crect fill='%23e0e0e0' x='100' y='100' width='1000' height='400' rx='8'/%3E%3Ctext fill='%23666' x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='32' font-weight='600'%3E${encodeURIComponent(project?.title || 'Project')}%3C/text%3E%3Ctext fill='%23999' x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='18'%3EImage not available%3C/text%3E%3C/svg%3E`;
-    
-    setImageSrc(svgPlaceholder);
-  }, [imageSrc, project]);
-
-  // Handle image load success
-  const handleImageLoad = useCallback(() => {
-    setImageLoading(false);
-    setImageError(false);
-  }, []);
-
-// Handle body scroll lock and focus management
-useEffect(() => {
-  if (isOpen) {
-    previousFocusRef.current = document.activeElement;
-    
-    // Batch DOM operations to avoid forced reflow
-    requestAnimationFrame(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement;
       document.body.style.overflow = 'hidden';
-      
-      // Scroll modal content to top
-      if (contentRef.current) {
-        contentRef.current.scrollTop = 0;
-      }
-      
-      // Focus first focusable element - use requestAnimationFrame instead of setTimeout
       requestAnimationFrame(() => {
-        const focusableElements = modalRef.current?.querySelectorAll(
+        const focusable = modalRef.current?.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
-        
-        if (focusableElements?.length > 0) {
-          focusableElements[0].focus();
-        }
+        focusable?.[0]?.focus();
       });
-    });
-  } else {
-    document.body.style.overflow = 'unset';
-    previousFocusRef.current?.focus();
-  }
-
-  return () => {
-    document.body.style.overflow = 'unset';
-  };
-}, [isOpen]);
-
-  // Handle keyboard events
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        handleClose();
-      }
+    } else {
+      document.body.style.overflow = '';
+      previousFocusRef.current?.focus();
+    }
+    return () => {
+      document.body.style.overflow = '';
     };
+  }, [isOpen]);
 
-    const handleTabTrap = (e) => {
-      if (!isOpen || !modalRef.current) return;
-
-      const focusableElements = modalRef.current.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-
-      if (e.key === 'Tab') {
-        if (e.shiftKey && document.activeElement === firstElement) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') handleClose();
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
-          lastElement.focus();
-        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
-          firstElement.focus();
+          first.focus();
         }
       }
     };
-
-    document.addEventListener('keydown', handleEscape);
-    document.addEventListener('keydown', handleTabTrap);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('keydown', handleTabTrap);
-    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [isOpen, handleClose]);
 
   if (!isOpen || !project) return null;
 
-  // Safe checks for links
-  const hasGithub = project.github && 
-                    project.github !== 'null' && 
-                    !project.github.includes('yourusername');
+  const hasGithub = project.github && !project.github.includes('yourusername');
   const hasLive = project.live && project.live !== 'null';
 
-  // Icon Components
-  const CloseIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  );
-
-  const GithubIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-    </svg>
-  );
-
-  const ExternalIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-      <polyline points="15 3 21 3 21 9"/>
-      <line x1="10" y1="14" x2="21" y2="3"/>
-    </svg>
-  );
-
-  const CheckIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
-  );
-
-  const modalContent = (
-    <>
-      <div 
-        className="project-modal__overlay"
-        onClick={handleClose}
-        aria-hidden="true"
-      />
-      <div 
-        ref={modalRef}
-        className="project-modal__container"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <button
-          className="project-modal__close"
+  const content = (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="project-modal-overlay"
           onClick={handleClose}
-          aria-label="Close modal"
-          title="Close (Esc)"
+          role="presentation"
+          variants={modalOverlay}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={{ duration: reduced ? 0 : 0.3 }}
         >
-          <CloseIcon />
-        </button>
+          <motion.div
+            ref={modalRef}
+            className="project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            onClick={(e) => e.stopPropagation()}
+            variants={modalContent}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: reduced ? 0 : 0.3 }}
+          >
+            <motion.button 
+              type="button" 
+              className="project-modal__close" 
+              onClick={handleClose} 
+              aria-label="Close"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+            >
+              ×
+            </motion.button>
+            <div className="project-modal__content">
+              <motion.img 
+                src={project.image} 
+                alt="" 
+                className="project-modal__hero"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+              />
+              <motion.div 
+                className="project-modal__meta"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                {project.role && <span>{project.role}</span>}
+                {project.duration && <span>{project.duration}</span>}
+                <span>{project.category}</span>
+              </motion.div>
+              <motion.h2 
+                id="modal-title" 
+                className="project-modal__title"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+              >
+                {project.title}
+              </motion.h2>
 
-        <div ref={contentRef} className="project-modal__content">
-          {/* Image Section with Enhanced Error Handling */}
-          <div className="project-modal__image-wrapper">
-            {imageLoading && !imageError && (
-              <div className="project-modal__image-skeleton" aria-label="Loading image">
-                <div className="skeleton-pulse"></div>
-              </div>
-            )}
-            <img 
-              src={imageSrc}
-              alt={`${project.title} - ${project.tagline || 'Project screenshot'}`}
-              className="project-modal__image"
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                opacity: !imageLoading ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out'
-              }}
-            />
-            {project.featured && (
-              <div className="project-modal__badge">⭐ Featured</div>
-            )}
-            {project.status && (
-              <div className={`project-modal__status project-modal__status--${project.status.toLowerCase().replace(' ', '-')}`}>
-                {project.status}
-              </div>
-            )}
-          </div>
+              <motion.section 
+                className="project-modal__section"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.4 }}
+              >
+                <h3>Overview</h3>
+                <p>{project.fullDescription || project.description}</p>
+              </motion.section>
 
-          {/* Details Section */}
-          <div className="project-modal__details">
-            <div className="project-modal__header">
-              <span className="project-modal__category">{project.category}</span>
-              <h2 id="modal-title" className="project-modal__title">{project.title}</h2>
-              {project.tagline && (
-                <p className="project-modal__tagline">{project.tagline}</p>
-              )}
-            </div>
-
-            {/* Meta Information */}
-            {(project.duration || project.team || project.role) && (
-              <div className="project-modal__meta">
-                {project.duration && (
-                  <div className="project-modal__meta-item">
-                    <strong>Duration:</strong> <span>{project.duration}</span>
-                  </div>
-                )}
-                {project.team && (
-                  <div className="project-modal__meta-item">
-                    <strong>Team:</strong> <span>{project.team}</span>
-                  </div>
-                )}
-                {project.role && (
-                  <div className="project-modal__meta-item">
-                    <strong>Role:</strong> <span>{project.role}</span>
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="project-modal__body">
-              {/* Overview */}
-              <section className="project-modal__section">
-                <h3 className="project-modal__section-title">📖 Overview</h3>
-                <p id="modal-description" className="project-modal__description">
-                  {project.fullDescription || project.description}
-                </p>
-              </section>
-
-              {/* Key Features */}
-              {project.features && project.features.length > 0 && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">✨ Key Features</h3>
-                  <ul className="project-modal__features">
-                    {project.features.map((feature, index) => (
-                      <li key={index} className="project-modal__feature">
-                        <span className="project-modal__feature-icon">
-                          <CheckIcon />
-                        </span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-
-              {/* Technologies Used */}
-              {project.tags && project.tags.length > 0 && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">🛠️ Technologies Used</h3>
-                  <div className="project-modal__tags">
-                    {project.tags.map((tag, index) => (
-                      <span key={index} className="project-modal__tag">{tag}</span>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Detailed Technologies */}
-              {project.technologies && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">🔧 Tech Stack Details</h3>
-                  <div className="project-modal__tech-stack">
-                    {Object.entries(project.technologies).map(([category, techs]) => (
-                      <div key={category} className="project-modal__tech-category">
-                        <h4 className="project-modal__tech-category-title">
-                          {category.charAt(0).toUpperCase() + category.slice(1)}
-                        </h4>
-                        <div className="project-modal__tech-list">
-                          {techs.map((tech, idx) => (
-                            <span key={idx} className="project-modal__tech-item">{tech}</span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Challenges & Solutions */}
-              {project.challenges && project.challenges.length > 0 && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">🎯 Challenges & Solutions</h3>
-                  <div className="project-modal__challenges">
-                    {project.challenges.map((challenge, index) => (
-                      <div key={index} className="project-modal__challenge">
-                        <h4 className="project-modal__challenge-title">
-                          {challenge.title}
-                        </h4>
-                        <p className="project-modal__challenge-description">
-                          <strong>Challenge:</strong> {challenge.description}
-                        </p>
-                        <p className="project-modal__challenge-solution">
-                          <strong>Solution:</strong> {challenge.solution}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Results & Impact */}
-              {project.results && project.results.length > 0 && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">📊 Results & Impact</h3>
-                  <div className="project-modal__results">
-                    {project.results.map((result, index) => (
-                      <div key={index} className="project-modal__result">
-                        <div className="project-modal__result-value">{result.value}</div>
-                        <div className="project-modal__result-label">{result.label}</div>
-                        {result.description && (
-                          <div className="project-modal__result-description">{result.description}</div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Testimonial */}
-              {project.testimonial && (
-                <section className="project-modal__section">
-                  <h3 className="project-modal__section-title">💬 Testimonial</h3>
-                  <div className="project-modal__testimonial">
-                    <p className="project-modal__testimonial-text">
-                      "{project.testimonial.text}"
+              {project.challenges?.length > 0 && (
+                <motion.section 
+                  className="project-modal__section"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                >
+                  <h3>Approach</h3>
+                  {project.challenges.map((c, i) => (
+                    <p key={i}>
+                      <strong>{c.title}.</strong> {c.solution || c.description}
                     </p>
-                    <div className="project-modal__testimonial-author">
-                      <strong>{project.testimonial.author}</strong>
-                      <span>{project.testimonial.role}</span>
-                    </div>
+                  ))}
+                </motion.section>
+              )}
+
+              {project.results?.length > 0 && (
+                <motion.section 
+                  className="project-modal__section"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.6 }}
+                >
+                  <h3>Outcome</h3>
+                  <div className="project-modal__results">
+                    {project.results.map((r, i) => (
+                      <motion.div 
+                        key={i} 
+                        className="project-modal__result"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.7 + (i * 0.1) }}
+                      >
+                        <span className="project-modal__result-value">{r.value}</span>
+                        <span className="project-modal__result-label">{r.label}</span>
+                      </motion.div>
+                    ))}
                   </div>
-                </section>
+                </motion.section>
+              )}
+
+              {project.tags?.length > 0 && (
+                <motion.section 
+                  className="project-modal__section"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                >
+                  <h3>Stack</h3>
+                  <p>{project.tags.join(' · ')}</p>
+                </motion.section>
+              )}
+
+              {(hasGithub || hasLive) && (
+                <motion.footer 
+                  className="project-modal__footer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.9 }}
+                >
+                  {hasGithub && (
+                    <a
+                      href={project.github}
+                      className="project-modal__link interactive"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Source code
+                    </a>
+                  )}
+                  {hasLive && (
+                    <a
+                      href={project.live}
+                      className="project-modal__link interactive"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Live demo
+                    </a>
+                  )}
+                </motion.footer>
               )}
             </div>
-
-            {/* Footer with Action Buttons */}
-            {(hasGithub || hasLive) && (
-              <div className="project-modal__footer">
-                {hasGithub && (
-                  <Button
-                    variant="outline"
-                    size="large"
-                    iconLeft={<GithubIcon />}
-                    onClick={() => window.open(project.github, '_blank', 'noopener,noreferrer')}
-                    aria-label={`View ${project.title} source code on GitHub`}
-                  >
-                    View Source Code
-                  </Button>
-                )}
-                {hasLive && (
-                  <Button
-                    variant="primary"
-                    size="large"
-                    iconRight={<ExternalIcon />}
-                    onClick={() => window.open(project.live, '_blank', 'noopener,noreferrer')}
-                    aria-label={`View ${project.title} live demo`}
-                  >
-                    View Live Demo
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 
-  return createPortal(modalContent, document.body);
+  return createPortal(content, document.body);
 };
 
 export default ProjectModal;

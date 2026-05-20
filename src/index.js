@@ -5,8 +5,8 @@ import App from './App';
 
 // Import global styles
 import './styles/variables.css';
-import './styles/global.css';
 import './styles/themes.css';
+import './styles/global.css';
 
 // Get root element
 const rootElement = document.getElementById('root');

@@ -331,11 +331,11 @@ td {
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
 }
 
 @media (max-width: 768px) {
@@ -568,4 +568,25 @@ td {
   .scroll-progress {
     display: none !important;
   }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU Acceleration for animated elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Optimize paint for animated elements */
+.paint-optimized {
+  contain: layout style paint;
+}
+
+/* Reduce paint for static elements */
+.static-optimized {
+  will-change: auto;
 }

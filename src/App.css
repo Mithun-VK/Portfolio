@@ -1,25 +1,32 @@
 /**
- * App-level styles
- * Global application styles and loading states
+ * App shell — loading, error, offline only
+ * Design tokens live in variables.css + themes.css
  */
-
-/* ============================================
-   APP CONTAINER
-   ============================================ */
 
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color var(--duration-300) var(--ease-in-out),
-              color var(--duration-300) var(--ease-in-out);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: var(--transition-colors);
 }
 
-/* ============================================
-   LOADING STATE
-   ============================================ */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
 
 .app-loading {
   min-height: 100vh;
@@ -27,109 +34,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-primary);
-  gap: 1.5rem;
+  background-color: var(--color-bg);
+  gap: var(--space-6);
 }
 
 .app-loading__spinner {
-  width: 56px;
-  height: 56px;
-  border: 4px solid var(--color-gray-200);
-  border-top-color: var(--color-primary-500);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-[data-theme='dark'] .app-loading__spinner {
-  border-color: var(--color-gray-700);
-  border-top-color: var(--color-primary-400);
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  animation: spin 0.7s linear infinite;
 }
 
 .app-loading__text {
-  font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-  font-weight: var(--font-weight-medium);
-  animation: pulse 2s ease-in-out infinite;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* ============================================
-   PRELOAD STATE (Prevents FOUC)
-   ============================================ */
-
-.preload * {
-  transition: none !important;
-  animation: none !important;
-}
-
-/* ============================================
-   PAGE TRANSITIONS
-   ============================================ */
-
-.page-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity var(--duration-500) var(--ease-in-out),
-              transform var(--duration-500) var(--ease-in-out);
-}
-
-.page-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page-exit-active {
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity var(--duration-300) var(--ease-in-out),
-              transform var(--duration-300) var(--ease-in-out);
-}
-
-/* ============================================
-   SCROLL BEHAVIOR
-   ============================================ */
-
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* ============================================
-   FOCUS OUTLINE
-   ============================================ */
-
-:focus-visible {
-  outline: 2px solid var(--color-primary-500);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-/* Remove outline for mouse users */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* ============================================
-   ERROR BOUNDARY STYLES
-   ============================================ */
 
 .error-boundary {
   min-height: 100vh;
@@ -137,210 +58,60 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--space-8);
   text-align: center;
-  background-color: var(--bg-primary);
-}
-
-.error-boundary__icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
+  background-color: var(--color-bg);
 }
 
 .error-boundary__title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: var(--text-section-title);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
 }
 
 .error-boundary__message {
   font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-  max-width: 600px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+  max-width: 32rem;
 }
 
 .error-boundary__button {
-  padding: 0.875rem 1.75rem;
-  background-color: var(--color-primary-500);
-  color: white;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-accent);
+  color: #fff;
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-base);
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: var(--transition-all);
+  transition: var(--transition-colors);
 }
 
 .error-boundary__button:hover {
-  background-color: var(--color-primary-600);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-accent-hover);
 }
 
-/* ============================================
-   OFFLINE INDICATOR
-   ============================================ */
+.error-boundary__button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
 
 .offline-indicator {
   position: fixed;
-  bottom: 2rem;
+  bottom: var(--space-4);
   left: 50%;
   transform: translateX(-50%);
-  padding: 1rem 2rem;
-  background-color: var(--color-gray-800);
-  color: white;
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-xl);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  z-index: var(--z-tooltip);
-  animation: slideUp var(--duration-300) var(--ease-in-out);
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-/* ============================================
-   PRINT STYLES
-   ============================================ */
-
-@media print {
-  .app {
-    background: white;
-    color: black;
-  }
-
-  .app-loading,
-  .offline-indicator {
-    display: none !important;
-  }
-}
-
-/* ============================================
-   ACCESSIBILITY - HIGH CONTRAST MODE
-   ============================================ */
-
-@media (prefers-contrast: high) {
-  .app {
-    --color-primary-500: #0056b3;
-    --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  .app-loading__spinner {
-    border-width: 5px;
-  }
-}
-
-/* ============================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================ */
-
-@media (max-width: 768px) {
-  .app-loading__spinner {
-    width: 48px;
-    height: 48px;
-    border-width: 3px;
-  }
-
-  .app-loading__text {
-    font-size: var(--font-size-base);
-  }
-
-  .offline-indicator {
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
-    transform: none;
-    text-align: center;
-  }
-}
-
-/* ============================================
-   PERFORMANCE OPTIMIZATIONS
-   ============================================ */
-
-/* GPU acceleration for animations */
-.app-loading__spinner,
-.page-enter-active,
-.page-exit-active {
-  will-change: transform;
-}
-
-/* Reduce animations on low-end devices */
-@media (prefers-reduced-motion: reduce) {
-  .app-loading__spinner,
-  .app-loading__text,
-  .page-enter,
-  .page-enter-active,
-  .page-exit,
-  .page-exit-active,
-  .offline-indicator {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-/* Add these to your existing App.css */
-
-/* ============================================
-   ERROR BOUNDARY STYLES
-   ============================================ */
-
-.error-boundary {
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
-  background-color: var(--bg-primary);
-}
-
-.error-boundary__icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-}
-
-.error-boundary__title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.error-boundary__message {
-  font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-  max-width: 600px;
-}
-
-.error-boundary__button {
-  padding: 0.875rem 1.75rem;
-  background-color: var(--color-primary-500);
-  color: white;
-  border: none;
-  border-radius: var(--radius-lg);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  transition: var(--transition-all);
-}
-
-.error-boundary__button:hover {
-  background-color: var(--color-primary-600);
-  transform: translateY(-2px);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  z-index: var(--z-toast);
   box-shadow: var(--shadow-md);
 }

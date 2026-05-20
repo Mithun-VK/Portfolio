@@ -23,7 +23,7 @@ export const APP_INFO = {
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/in/mithun-v-k-76625927b/',
   github: 'https://github.com/Mithun-VK',
-  twitter: 'https://twitter.com/yourusername',
+  twitter: 'https://github.com/Mithun-VK',
   email: 'mailto:mithunvk216@gmail.com',
   resume: '/assets/documents/resume.pdf'
 };

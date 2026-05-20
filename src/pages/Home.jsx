@@ -77,7 +77,7 @@ const Home = () => {
         <meta name="description" content={SEO_META.DEFAULT_DESCRIPTION} />
         <meta name="keywords" content={SEO_META.DEFAULT_KEYWORDS} />
         <meta name="author" content={APP_INFO.author} />
-        
+
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={SEO_META.SITE_URL} />
@@ -85,7 +85,7 @@ const Home = () => {
         <meta property="og:description" content={SEO_META.DEFAULT_DESCRIPTION} />
         <meta property="og:image" content={`${SEO_META.SITE_URL}${SEO_META.OG_IMAGE}`} />
         <meta property="og:site_name" content={APP_INFO.name} />
-        
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={SEO_META.SITE_URL} />
@@ -93,15 +93,15 @@ const Home = () => {
         <meta name="twitter:description" content={SEO_META.DEFAULT_DESCRIPTION} />
         <meta name="twitter:image" content={`${SEO_META.SITE_URL}${SEO_META.OG_IMAGE}`} />
         <meta name="twitter:creator" content={SEO_META.TWITTER_HANDLE} />
-        
+
         {/* Additional Meta */}
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
-        
+
         {/* Canonical URL */}
         <link rel="canonical" href={SEO_META.SITE_URL} />
-        
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -111,7 +111,7 @@ const Home = () => {
             "url": SEO_META.SITE_URL,
             "sameAs": [
               "https://www.linkedin.com/in/mithun-v-k-76625927b/",
-              "https://github.com/yourusername"
+              "https://github.com/Mithun-VK"
             ],
             "jobTitle": "Full-Stack Developer",
             "worksFor": {
@@ -124,8 +124,8 @@ const Home = () => {
 
       <div className="home">
         {/* Scroll Progress Indicator */}
-        <div 
-          className="scroll-progress" 
+        <div
+          className="scroll-progress"
           role="progressbar"
           aria-label="Page scroll progress"
           aria-valuenow={Math.round(scrollProgress)}
@@ -144,10 +144,8 @@ const Home = () => {
           {/* About Section */}
           <About />
 
-          {/* Skills Section */}
           <Skills />
 
-          {/* Projects Section */}
           <Projects />
 
           {/* Experience Section */}
@@ -214,18 +212,18 @@ const BackToTop = () => {
       aria-label="Scroll to top"
       title="Back to top (Shift + ↑)"
     >
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="24" 
-        height="24" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <polyline points="18 15 12 9 6 15"/>
+        <polyline points="18 15 12 9 6 15" />
       </svg>
     </button>
   );

@@ -31,11 +31,11 @@ const SkillCategory = ({ category, view, index }) => {
   };
 
   return (
-    <div 
+    <div
       className={`skill-category skill-category--${view}`}
-      style={{ 
+      style={{
         animationDelay: `${index * 100}ms`,
-        '--category-color': category.color 
+        '--category-color': category.color
       }}
     >
       {/* Category Header */}
@@ -71,17 +71,17 @@ const SkillCategory = ({ category, view, index }) => {
       {/* Skills List */}
       <div className="skill-category__skills">
         {category.skills.map((skill, idx) => (
-          <div 
-            key={idx} 
+          <div
+            key={idx}
             className="skill-item"
             style={{ animationDelay: `${(index * 100) + (idx * 50)}ms` }}
           >
             <div className="skill-item__header">
               <div className="skill-item__info">
                 <span className="skill-item__name">{skill.name}</span>
-                <span 
+                <span
                   className="skill-item__badge"
-                  style={{ 
+                  style={{
                     background: `${getProficiencyColor(skill.level)}15`,
                     color: getProficiencyColor(skill.level)
                   }}
@@ -98,12 +98,12 @@ const SkillCategory = ({ category, view, index }) => {
                 <span className="skill-item__level">{skill.level}%</span>
               </div>
             </div>
-            
+
             {/* Progress Bar */}
             <div className="skill-item__progress-container">
-              <div 
+              <div
                 className="skill-item__progress-bar"
-                style={{ 
+                style={{
                   width: `${skill.level}%`,
                   background: category.color
                 }}

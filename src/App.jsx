@@ -1,8 +1,11 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { Routes, Route,useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { AnimatePresence, motion } from 'framer-motion';
 import useTheme from './hooks/useTheme';
 import { ROUTES, FEATURE_FLAGS } from './utils/constants';
+import { pageTransition } from './utils/motion';
+import CustomCursor from './components/effects/CustomCursor/CustomCursor';
 import './App.css';
 
 // Lazy load pages for better performance
@@ -43,8 +46,8 @@ class ErrorBoundary extends React.Component {
           <p className="error-boundary__message">
             We're sorry for the inconvenience. Please try reloading the page.
           </p>
-          <button 
-            className="error-boundary__button" 
+          <button
+            className="error-boundary__button"
             onClick={() => window.location.reload()}
           >
             Reload Page
@@ -64,13 +67,13 @@ function App() {
   // Set theme class on mount and when theme changes
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
         'content',
-        isDark ? '#0f172a' : '#ffffff'
+        isDark ? '#09090b' : '#fafafa'
       );
     }
 
@@ -94,7 +97,7 @@ function App() {
 
       script.onload = () => {
         window.dataLayer = window.dataLayer || [];
-        function gtag(){window.dataLayer.push(arguments);}
+        function gtag() { window.dataLayer.push(arguments); }
         window.gtag = gtag;
         gtag('js', new Date());
         gtag('config', process.env.REACT_APP_GA_ID);
@@ -157,23 +160,76 @@ function App() {
       <HelmetProvider>
         <div className="app">
           <Suspense fallback={<LoadingFallback />}>
-            <Routes>
-              {/* Home Route */}
-              <Route path={ROUTES.HOME} element={<Home />} />
-              
-              {/* Project Details Route */}
-              <Route path={ROUTES.PROJECT_DETAILS} element={<ProjectDetails />} />
-              
-              {/* 404 Not Found Route */}
-              <Route path="/404" element={<NotFound />} />
-              
-              {/* Catch all - redirect to 404 */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                {/* Home Route */}
+                <Route 
+                  path={ROUTES.HOME} 
+                  element={
+                    <motion.div
+                      variants={pageTransition}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <Home />
+                    </motion.div>
+                  } 
+                />
+
+                {/* Project Details Route */}
+                <Route 
+                  path={ROUTES.PROJECT_DETAILS} 
+                  element={
+                    <motion.div
+                      variants={pageTransition}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <ProjectDetails />
+                    </motion.div>
+                  } 
+                />
+
+                {/* 404 Not Found Route */}
+                <Route 
+                  path="/404" 
+                  element={
+                    <motion.div
+                      variants={pageTransition}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <NotFound />
+                    </motion.div>
+                  } 
+                />
+
+                {/* Catch all - redirect to 404 */}
+                <Route 
+                  path="*" 
+                  element={
+                    <motion.div
+                      variants={pageTransition}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <NotFound />
+                    </motion.div>
+                  } 
+                />
+              </Routes>
+            </AnimatePresence>
           </Suspense>
 
           {/* Offline Indicator */}
           <OfflineIndicator />
+
+          {/* Custom Cursor */}
+          <CustomCursor />
         </div>
       </HelmetProvider>
     </ErrorBoundary>
@@ -202,13 +258,13 @@ const OfflineIndicator = () => {
   return (
     <div className="offline-indicator" role="alert" aria-live="assertive">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <line x1="1" y1="1" x2="23" y2="23"/>
-        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
-        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-        <line x1="12" y1="20" x2="12.01" y2="20"/>
+        <line x1="1" y1="1" x2="23" y2="23" />
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55" />
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39" />
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9" />
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88" />
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+        <line x1="12" y1="20" x2="12.01" y2="20" />
       </svg>
       <span>You're offline. Some features may be unavailable.</span>
     </div>

@@ -1,0 +1,15 @@
+.text-reveal {
+  display: inline-block;
+}
+
+.text-reveal__char {
+  display: inline-block;
+  will-change: transform, opacity;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-reveal__char {
+    display: inline;
+  }
+}

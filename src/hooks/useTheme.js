@@ -25,7 +25,7 @@ const useTheme = () => {
       }
     } catch (error) {
     }
-    return THEMES.AUTO;
+    return THEMES.DARK;
   };
 
   // Detect system theme preference
@@ -65,7 +65,7 @@ const useTheme = () => {
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
         'content',
-        resolvedTheme === THEMES.DARK ? '#111827' : '#ffffff'
+        resolvedTheme === THEMES.DARK ? '#09090b' : '#fafafa'
       );
     }
 
