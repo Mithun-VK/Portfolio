@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { card3D, cardHover } from '../../../utils/motion';
+import { card3D } from '../../../utils/motion';
 import useTilt from '../../../hooks/useTilt';
 import './Projects.css';
 
